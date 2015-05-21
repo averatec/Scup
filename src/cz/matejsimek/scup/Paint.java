@@ -208,8 +208,17 @@ public class Paint extends javax.swing.JFrame {
                 super.mouseReleased(e);
                 BufferedImage image = imgPanel.getImage();
                 draw(e);
+
+                System.out.println("imgHistoryIterator: " + imgHistoryIterator);
+                for(int i=0;i>imgHistoryIterator;i--){
+                    try {
+                        imgHistory.remove(imgHistory.size() - 1);
+                    }catch(Exception ex){
+
+                    }
+                }
+                imgHistoryIterator=0;
                 imgHistory.add(bufferedImageClone(image));
-                imgHistoryIterator = 0;
             }
         });
 
