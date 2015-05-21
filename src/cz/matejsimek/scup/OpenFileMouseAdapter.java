@@ -11,22 +11,22 @@ import java.net.URI;
  */
 public class OpenFileMouseAdapter extends MouseAdapter {
 
-  private String path;
-  private boolean isLocalFile;
+    private String path;
+    private boolean isLocalFile;
 
-  public OpenFileMouseAdapter(String path, boolean isLocalFile) {
-	this.path = path;
-	this.isLocalFile = isLocalFile;
-  }
+    public OpenFileMouseAdapter(String path, boolean isLocalFile) {
+        this.path = path;
+        this.isLocalFile = isLocalFile;
+    }
 
-  @Override
-  public void mouseReleased(MouseEvent e) {
-	if (e.isControlDown()) {
-	  if (isLocalFile) {
-		Scup.openOnFile(path);
-	  } else {
-		Scup.openBrowserOn(URI.create(path));
-	  }
-	}
-  }
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (e.isControlDown()) {
+            if (isLocalFile) {
+                Scup.openOnFile(path);
+            } else {
+                Scup.openBrowserOn(URI.create(path));
+            }
+        }
+    }
 }
