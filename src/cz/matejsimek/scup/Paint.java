@@ -41,12 +41,13 @@ public class Paint extends javax.swing.JFrame {
     private int imgHistoryIterator;
     private ColorChooser colorChooser;
     private JButton lastAction;
+    private ActionListener listener;
 
     public Paint(BufferedImage image) {
         super("Scup");
         init(image);
         registerListeners();
-
+        restorePrefs();
     }
 
     public static BufferedImage bufferedImageClone(BufferedImage bi) {
@@ -147,37 +148,41 @@ public class Paint extends javax.swing.JFrame {
             }
         });
 
-        lastAction = rectangle;
-        ActionListener listener = new ActionListener() {
+        listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(lastAction!=null){
+                if (lastAction != null) {
                     lastAction.setSelected(false);
                 }
                 if (actionEvent.getSource() == rectangle) {
                     rectangle.setSelected(true);
                     lastAction = rectangle;
                     drawTool = new RectangleDrawTool();
+                    prefs.put("selected_tool", "rectangle");
                 }
                 if (actionEvent.getSource() == line) {
                     line.setSelected(true);
                     lastAction = line;
                     drawTool = new LineDrawTool();
+                    prefs.put("selected_tool", "line");
                 }
                 if (actionEvent.getSource() == ellipse) {
                     ellipse.setSelected(true);
                     lastAction = ellipse;
                     drawTool = new EllipseDrawTool();
+                    prefs.put("selected_tool", "ellipse");
                 }
                 if (actionEvent.getSource() == arrow) {
                     arrow.setSelected(true);
                     lastAction = arrow;
                     drawTool = new ArrowDrawTool();
+                    prefs.put("selected_tool", "arrow");
                 }
                 if (actionEvent.getSource() == blur) {
                     blur.setSelected(true);
                     lastAction = blur;
                     drawTool = new BlurDrawTool();
+                    prefs.put("selected_tool", "blur");
                 }
                 if (actionEvent.getSource() == text) {
                     //@todo
@@ -208,16 +213,14 @@ public class Paint extends javax.swing.JFrame {
                 super.mouseReleased(e);
                 BufferedImage image = imgPanel.getImage();
                 draw(e);
-
-                System.out.println("imgHistoryIterator: " + imgHistoryIterator);
-                for(int i=0;i>imgHistoryIterator;i--){
+                for (int i = 0; i > imgHistoryIterator; i--) {
                     try {
                         imgHistory.remove(imgHistory.size() - 1);
-                    }catch(Exception ex){
+                    } catch (Exception ex) {
 
                     }
                 }
-                imgHistoryIterator=0;
+                imgHistoryIterator = 0;
                 imgHistory.add(bufferedImageClone(image));
             }
         });
@@ -225,7 +228,6 @@ public class Paint extends javax.swing.JFrame {
         color.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 colorChooser.setVisible(true);
-                color.setForeground(colorChooser.getColor().getColor());
             }
         });
 
@@ -235,6 +237,43 @@ public class Paint extends javax.swing.JFrame {
         line.addActionListener(listener);
         text.addActionListener(listener);
         blur.addActionListener(listener);
+        size.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JSlider source = (JSlider)e.getSource();
+                if (!source.getValueIsAdjusting()) {
+                    int a = (int)source.getValue();
+                    prefs.putInt("selected_size", a);
+                }
+            }
+        });
+    }
+
+    private void restorePrefs() {
+        ActionEvent ac = null;
+        String selected_tool = prefs.get("selected_tool", "");
+        if (selected_tool.equals("rectangle")) {
+            ac = new ActionEvent(rectangle, 0, "");
+        }
+        if (selected_tool.equals("line")) {
+            ac = new ActionEvent(line, 0, "");
+        }
+        if (selected_tool.equals("ellipse")) {
+            ac = new ActionEvent(ellipse, 0, "");
+        }
+        if (selected_tool.equals("arrow")) {
+            ac = new ActionEvent(arrow, 0, "");
+        }
+        if (selected_tool.equals("blur")) {
+            ac = new ActionEvent(blur, 0, "");
+        }
+        if(ac!=null){
+            listener.actionPerformed(ac);
+        }
+        int selected_color = prefs.getInt("selected_color", Color.RED.getRGB());
+        colorChooser.setColor(selected_color);
+        color.setForeground(new Color(selected_color));
+        size.setValue(prefs.getInt("selected_size", 2));
     }
 
     private Graphics2D getGraphics2D(BufferedImage image) {
