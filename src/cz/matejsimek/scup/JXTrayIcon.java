@@ -21,12 +21,12 @@ package cz.matejsimek.scup;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Based on a blog post from Alexander Potochkin at the following url:

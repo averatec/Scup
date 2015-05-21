@@ -17,13 +17,11 @@ import java.io.IOException;
 public class FileUpload {
 
     private FTPClient client;
-    private FTPSClient sclient;
     private FileInputStream fis;
     private String server, username, password, remotePath;
 
     private FileUpload() {
         client = new FTPClient();
-        sclient = new FTPSClient();
         fis = null;
     }
 

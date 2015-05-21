@@ -3,17 +3,19 @@ package cz.matejsimek.scup;
 /**
  * Created by kamil on 20.05.15.
  */
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import javax.swing.JPanel;
 
-public class ImagePanel extends JPanel{
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+public class ImagePanel extends JPanel {
 
     private BufferedImage image = null;
 
     public ImagePanel() {
 
     }
+
     public ImagePanel(BufferedImage image) {
         setImage(image);
     }

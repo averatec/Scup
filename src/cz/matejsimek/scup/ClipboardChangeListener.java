@@ -1,6 +1,5 @@
 package cz.matejsimek.scup;
 
-import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
@@ -18,14 +17,6 @@ public class ClipboardChangeListener extends Thread {
      * Data source
      */
     private Clipboard clipboard;
-    /**
-     * Dimension of virtual desktop needed to decide from what source image is
-     */
-    private Dimension virtualSize;
-    /**
-     * Indicates multiple display setup
-     */
-    private boolean multipleDisplays = false;
 
     @Override
     public void run() {
@@ -86,7 +77,6 @@ public class ClipboardChangeListener extends Thread {
 
     /**
      * @param clipboard  Data source
-     * @param monitorAll Capture images from all sources, not only printscreen
      */
     public ClipboardChangeListener(Clipboard clipboard) {
         this.clipboard = clipboard;
