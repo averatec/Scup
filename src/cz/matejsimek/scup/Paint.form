@@ -76,6 +76,7 @@
           <component id="aea4c" class="javax.swing.JButton" binding="text">
             <constraints/>
             <properties>
+              <enabled value="false"/>
               <hideActionText value="false"/>
               <maximumSize width="23" height="27"/>
               <minimumSize width="23" height="27"/>

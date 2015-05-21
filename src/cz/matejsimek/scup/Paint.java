@@ -40,6 +40,7 @@ public class Paint extends javax.swing.JFrame {
     private ArrayList<BufferedImage> imgHistory;
     private int imgHistoryIterator;
     private ColorChooser colorChooser;
+    private JButton lastAction;
 
     public Paint(BufferedImage image) {
         super("Scup");
@@ -58,7 +59,7 @@ public class Paint extends javax.swing.JFrame {
     private void init(BufferedImage image) {
         imgHistory = new ArrayList<BufferedImage>();
         imgHistoryIterator = 0;
-        colorChooser = new ColorChooser();
+        colorChooser = new ColorChooser(color);
         prefs = Preferences.userNodeForPackage(cz.matejsimek.scup.Scup.class);
 
         setContentPane(paintPanel);
@@ -75,6 +76,7 @@ public class Paint extends javax.swing.JFrame {
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
+        color.setForeground(colorChooser.getColor().getColor());
     }
 
     private void performRedo() {
@@ -145,22 +147,36 @@ public class Paint extends javax.swing.JFrame {
             }
         });
 
+        lastAction = rectangle;
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                if(lastAction!=null){
+                    lastAction.setSelected(false);
+                }
                 if (actionEvent.getSource() == rectangle) {
+                    rectangle.setSelected(true);
+                    lastAction = rectangle;
                     drawTool = new RectangleDrawTool();
                 }
                 if (actionEvent.getSource() == line) {
+                    line.setSelected(true);
+                    lastAction = line;
                     drawTool = new LineDrawTool();
                 }
                 if (actionEvent.getSource() == ellipse) {
+                    ellipse.setSelected(true);
+                    lastAction = ellipse;
                     drawTool = new EllipseDrawTool();
                 }
                 if (actionEvent.getSource() == arrow) {
+                    arrow.setSelected(true);
+                    lastAction = arrow;
                     drawTool = new ArrowDrawTool();
                 }
                 if (actionEvent.getSource() == blur) {
+                    blur.setSelected(true);
+                    lastAction = blur;
                     drawTool = new BlurDrawTool();
                 }
                 if (actionEvent.getSource() == text) {
@@ -200,6 +216,7 @@ public class Paint extends javax.swing.JFrame {
         color.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 colorChooser.setVisible(true);
+                color.setForeground(colorChooser.getColor().getColor());
             }
         });
 

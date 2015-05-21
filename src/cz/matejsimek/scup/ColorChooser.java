@@ -12,9 +12,11 @@ public class ColorChooser extends javax.swing.JFrame {
     private JPanel rootPanel;
     private JColorChooser color;
     private JButton ok;
+    private JButton parentButton;
 
-    public ColorChooser() {
+    public ColorChooser(JButton bb) {
         super("Scup");
+        parentButton = bb;
         setContentPane(rootPanel);
         setResizable(false);
         setLocationByPlatform(true);
@@ -27,6 +29,7 @@ public class ColorChooser extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 dispose();
+                parentButton.setForeground(color.getColor());
             }
         });
     }
