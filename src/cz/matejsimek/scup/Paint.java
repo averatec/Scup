@@ -3,13 +3,13 @@ package cz.matejsimek.scup;
 import cz.matejsimek.scup.DrawTool.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
-import java.beans.PropertyChangeListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
@@ -76,8 +76,7 @@ public class Paint extends javax.swing.JFrame {
         pack();
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        setLocationRelativeTo(null);
         setVisible(true);
         color.setForeground(colorChooser.getColor().getColor());
     }
