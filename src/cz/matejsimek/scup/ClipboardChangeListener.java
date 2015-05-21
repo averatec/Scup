@@ -1,19 +1,11 @@
 package cz.matejsimek.scup;
 
-import java.awt.AWTException;
-import java.awt.Dimension;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.MouseInfo;
-import java.awt.Rectangle;
-import java.awt.Robot;
+import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.List;
+import java.io.IOException;
 
 /**
  * Clipboard listener which decide what to do with clipboard content
@@ -69,8 +61,17 @@ public class ClipboardChangeListener extends Thread {
                     }
 
                 }
+            }catch(IOException e){
+                try {
+                    Runtime.getRuntime().exec(new String[]{"/usr/bin/notify-send", "Scup", "Image in clipboard is too large to processing.", "--icon=dialog-information"});
+                } catch (IOException ex) {
+                    System.out.println(e.getLocalizedMessage());
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
+            }
+            finally {
+                clipboard.setContents(new StringSelection(""), null);
             }
 
             synchronized (this) {
