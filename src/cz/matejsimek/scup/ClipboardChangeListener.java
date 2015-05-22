@@ -54,15 +54,13 @@ public class ClipboardChangeListener extends Thread {
                 }
             }catch(IOException e){
                 try {
+                    clipboard.setContents(new StringSelection(""), null);
                     Runtime.getRuntime().exec(new String[]{"/usr/bin/notify-send", "Scup", "Image in clipboard is too large to processing.", "--icon=dialog-information"});
                 } catch (IOException ex) {
                     System.out.println(e.getLocalizedMessage());
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
-            }
-            finally {
-                clipboard.setContents(new StringSelection(""), null);
             }
 
             synchronized (this) {
