@@ -26,6 +26,7 @@ public class ColorChooser extends javax.swing.JDialog {
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+        setAlwaysOnTop(true);
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
