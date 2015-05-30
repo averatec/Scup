@@ -23,7 +23,9 @@ public class BlurDrawTool extends AbstractDrawTool {
         BufferedImage biDest = null;
         for (int i = 0; i < 6; i++) {
             biDest = new BufferedImage(biSrc.getWidth(), biSrc.getHeight(), image.getType());
-            float data[] = {0.0625f, 0.125f, 0.0625f, 0.125f, 0.25f, 0.125f, 0.0625f, 0.125f, 0.0625f};
+            float data[] = {
+                1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f, 1f / 9f
+            };
             Kernel kernel = new Kernel(3, 3, data);
             ConvolveOp convolve = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
             convolve.filter(biSrc, biDest);
