@@ -186,7 +186,11 @@ public class Paint extends javax.swing.JFrame {
                     prefs.put("selected_tool", "blur");
                 }
                 if (actionEvent.getSource() == text) {
-                    //@todo
+                    text.setSelected(true);
+                    lastAction = text;
+                    drawTool = new TextDrawTool();
+                    prefs.put("selected_tool", "text");
+                    imgPanel.grabFocus();
                 }
             }
         };
@@ -201,28 +205,47 @@ public class Paint extends javax.swing.JFrame {
             }
         });
 
+        imgPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyTyped(e);
+                if (drawTool instanceof TextDrawTool) {
+                    ((TextDrawTool) drawTool).keyPressed(e);
+                    BufferedImage image = bufferedImageClone(buffImage);
+                    imgPanel.setImage(image);
+                    draw(e);
+                    imgHistory.remove(imgHistory.size() - 1);
+                    imgHistory.add(image);
+                }
+            }
+        });
+
         imgPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
                 start = e.getPoint();
                 buffImage = imgPanel.getImage();
+                if (drawTool instanceof TextDrawTool) {
+                    imgPanel.grabFocus();
+                    ((TextDrawTool) drawTool).clear();
+                    ((TextDrawTool) drawTool).setPosition(e.getPoint());
+                    BufferedImage image = bufferedImageClone(buffImage);
+                    imgPanel.setImage(image);
+                    createNewHistoryEntry(image);
+                }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                BufferedImage image = imgPanel.getImage();
-                draw(e);
-                for (int i = 0; i > imgHistoryIterator; i--) {
-                    try {
-                        imgHistory.remove(imgHistory.size() - 1);
-                    } catch (Exception ex) {
-
-                    }
+                if (drawTool instanceof TextDrawTool) {
+                    return;
                 }
-                imgHistoryIterator = 0;
-                imgHistory.add(bufferedImageClone(image));
+                BufferedImage image = bufferedImageClone(buffImage);
+                imgPanel.setImage(image);
+                draw(e);
+                createNewHistoryEntry(image);
             }
         });
 
@@ -248,6 +271,18 @@ public class Paint extends javax.swing.JFrame {
                 }
             }
         });
+    }
+
+    private void createNewHistoryEntry(BufferedImage image) {
+        for (int i = 0; i > imgHistoryIterator; i--) {
+            try {
+                imgHistory.remove(imgHistory.size() - 1);
+            } catch (Exception ex) {
+
+            }
+        }
+        imgHistoryIterator = 0;
+        imgHistory.add(image);
     }
 
     private void restorePrefs() {
@@ -288,6 +323,10 @@ public class Paint extends javax.swing.JFrame {
 
         if (drawTool instanceof ArrowDrawTool) {
             ((ArrowDrawTool) drawTool).setSize(thickness * 2); //brzydkoooo
+        }
+        if (drawTool instanceof TextDrawTool) {
+            Font font = g.getFont().deriveFont( Font.BOLD, 8.0f + (thickness * 2));
+            g2.setFont(font);
         }
         if (drawTool instanceof AbstractDrawTool) {
             drawTool.setImage(image);
@@ -346,8 +385,19 @@ public class Paint extends javax.swing.JFrame {
         Point relStartOrg = getRelStartOrg();
         Dimension relDimOrg = getRelDimension(e.getPoint());
 
-        if (drawTool != null) {
+        if (drawTool != null && !(drawTool instanceof TextDrawTool)) {
             drawTool.draw(relStart, relDim, relStartOrg, relDimOrg);
+        }
+
+        g2.dispose();
+        imgPanel.repaint();
+    }
+
+    private void draw(KeyEvent e) {
+        Graphics2D g2 = getGraphics2D(imgPanel.getImage());
+
+        if (drawTool instanceof TextDrawTool) {
+            ((TextDrawTool)drawTool).draw();
         }
 
         g2.dispose();
