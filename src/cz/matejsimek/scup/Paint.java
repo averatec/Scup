@@ -342,9 +342,6 @@ public class Paint extends javax.swing.JFrame {
         g2.setStroke(new BasicStroke(thickness));
         g2.setColor(colorChooser.getColor().getColor());
 
-        if (drawTool instanceof ArrowDrawTool) {
-            ((ArrowDrawTool) drawTool).setSize(thickness * 2); //brzydkoooo
-        }
         if (drawTool instanceof TextDrawTool) {
             Font font = g.getFont().deriveFont( Font.BOLD, 8.0f + (thickness * 2));
             g2.setFont(font);

@@ -43,34 +43,54 @@
           <component id="34a73" class="javax.swing.JButton" binding="arrow">
             <constraints/>
             <properties>
-              <maximumSize width="23" height="27"/>
-              <minimumSize width="23" height="27"/>
-              <preferredSize width="23" height="27"/>
-              <text value="↗"/>
+              <horizontalTextPosition value="11"/>
+              <icon value="cz/matejsimek/scup/resources/arrow.png"/>
+              <iconTextGap value="0"/>
+              <inheritsPopupMenu value="false"/>
+              <maximumSize width="27" height="27"/>
+              <minimumSize width="27" height="27"/>
+              <preferredSize width="27" height="27"/>
+              <requestFocusEnabled value="false"/>
+              <rolloverEnabled value="false"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="cd943" class="javax.swing.JButton" binding="rectangle">
             <constraints/>
             <properties>
-              <text value="▭"/>
+              <icon value="cz/matejsimek/scup/resources/rectangle.png"/>
+              <iconTextGap value="0"/>
+              <inheritsPopupMenu value="false"/>
+              <label value=""/>
+              <maximumSize width="27" height="27"/>
+              <minimumSize width="27" height="27"/>
+              <preferredSize width="27" height="27"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="11610" class="javax.swing.JButton" binding="ellipse">
             <constraints/>
             <properties>
-              <maximumSize width="23" height="27"/>
-              <minimumSize width="23" height="27"/>
-              <preferredSize width="23" height="27"/>
-              <text value="⬭"/>
+              <icon value="cz/matejsimek/scup/resources/ellipse.png"/>
+              <iconTextGap value="0"/>
+              <label value=""/>
+              <maximumSize width="27" height="27"/>
+              <minimumSize width="27" height="27"/>
+              <preferredSize width="27" height="27"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="d38a7" class="javax.swing.JButton" binding="line">
             <constraints/>
             <properties>
-              <maximumSize width="23" height="27"/>
-              <minimumSize width="23" height="27"/>
-              <preferredSize width="23" height="27"/>
-              <text value="|"/>
+              <contentAreaFilled value="true"/>
+              <icon value="cz/matejsimek/scup/resources/line.png"/>
+              <iconTextGap value="0"/>
+              <label value=""/>
+              <maximumSize width="27" height="27"/>
+              <minimumSize width="27" height="27"/>
+              <preferredSize width="27" height="27"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="aea4c" class="javax.swing.JButton" binding="text">
@@ -78,17 +98,25 @@
             <properties>
               <enabled value="true"/>
               <hideActionText value="false"/>
-              <maximumSize width="23" height="27"/>
-              <minimumSize width="23" height="27"/>
-              <preferredSize width="23" height="27"/>
-              <text value="A"/>
+              <icon value="cz/matejsimek/scup/resources/text.png"/>
+              <iconTextGap value="0"/>
+              <maximumSize width="27" height="27"/>
+              <minimumSize width="27" height="27"/>
+              <preferredSize width="27" height="27"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="ac0a3" class="javax.swing.JButton" binding="blur">
             <constraints/>
             <properties>
               <actionCommand value="Blur"/>
-              <text value="Blur"/>
+              <icon value="cz/matejsimek/scup/resources/blur.png"/>
+              <iconTextGap value="0"/>
+              <maximumSize width="27" height="27"/>
+              <minimumSize width="27" height="27"/>
+              <preferredSize width="27" height="27"/>
+              <selected value="false"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
